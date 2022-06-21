@@ -15,16 +15,7 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 
 param vNetName string = 'vNet1'
 param addressPrefix string = '10.0.0.0/16'
-param subnets array = [
-  {
-    name: 'appGatewaySubnet'
-    subnetprefix: '10.0.1.0/24'
-  }
-  {
-    name: 'aksSubnet'
-    subnetPrefix: '10.0.2.0/24'
-  }
-]
+param subnets array
 
 module vNetSetup 'vNet_subnets.bicep' = {
   scope: resourceGroup

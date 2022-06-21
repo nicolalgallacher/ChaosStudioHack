@@ -21,11 +21,12 @@ resource vNet 'Microsoft.Network/virtualNetworks@2021-08-01' = {
 }
   
 resource Subnets 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = [for (sn, index) in subnets : {
+  parent: vNet
   name: sn.name
   properties: {
     addressPrefix: sn.subnetPrefix
   }
-  dependsOn: [vNet]
+  //dependsOn: [vNet]
 }]
 
  

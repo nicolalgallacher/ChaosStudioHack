@@ -6,19 +6,16 @@
         "value": "vNet1"
       },
       "addressPrefix": {
-        "value": "'10.0.0.0/16'"
+        "value": "10.0.0.0/16"
       },
       "subnets" : {
         "value":[
-            "name",
-            "subnetprefix"
-            ]
-        },
-        "appGatewaySubnet": {
-            "value" : {
-                "name" : "appGatewaySubnet",
-                "subnetprefix" : "10.0.1.0/24"
-            }   
-        }
+          {
+            "name": "appGatewaySubnet",
+            "subnetprefix": "10.0.1.0/24"
+          }
+          ]
+        
       }
+    }
 }
