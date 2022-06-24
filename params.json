@@ -25,7 +25,14 @@
       },
       "lbSubnetName" : {
         "value": "loadBalancerSubnet"
+      }, 
+      "poolSubnetName" : {
+        "value": "vmSubnet"
+      }, 
+      "vmName" : {
+        "value": "webVM"
       }
+
     }
 
 }
