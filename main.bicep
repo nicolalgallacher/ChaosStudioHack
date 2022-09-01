@@ -13,12 +13,20 @@ resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 
-param vNetName string// = 'vNet1'
-param addressPrefix string //= '10.0.0.0/16'
+param vNetName string
+param addressPrefix string 
 param subnets array
 
 param lbName string
 param lbSubnetName string 
+param poolSubnetName string
+
+param vmName string 
+
+param imageOffer string
+param imagePublisher string 
+param imageSku string
+param vmSize string 
 
 module vNetSetup 'vNet_subnets.bicep' = {
   scope: resourceGroup
@@ -29,6 +37,22 @@ module vNetSetup 'vNet_subnets.bicep' = {
     subnets: subnets
     location: location
     lbSubnetName: lbSubnetName
+    poolSubnetName: poolSubnetName
+  }
+}
+
+//Create VMs in PoolSubnet (but this could be repurposed to make VMs in other subnets)
+module vmCreation 'vm.bicep' = {
+  scope: resourceGroup
+  name: 'vmDeploy'
+  params: {
+    location: location
+    //vmName: vmName
+    poolSubnetID: vNetSetup.outputs.poolSubnetID
+    imageOffer: imageOffer
+    imagePublisher: imagePublisher
+    imageSku: imageSku
+    vmSize: vmSize
   }
 }
 module loadBalancerSetup 'loadBalancer.bicep' = {
