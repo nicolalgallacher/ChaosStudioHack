@@ -11,6 +11,7 @@ param imagePublisher string
 param imageOffer string
 param imageSku string
 
+param backendPoolID string
 param poolSubnetID string
 
 var vmNicName = 'nic1' 
@@ -37,6 +38,12 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2021-08-01' = [for i in rang
           subnet: {
              id: poolSubnetID
           }
+          //I feel this should be changed out into an if statement to make it more resusable
+          loadBalancerBackendAddressPools: [
+             {
+               id: backendPoolID
+             }
+          ]
         }
        }
     ]

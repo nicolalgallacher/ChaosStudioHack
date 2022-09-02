@@ -10,7 +10,8 @@ var lbSku = 'Standard'
 //param lbSubnetName string
 
 var lbpublicIPname = 'lbpublicIP'
-var backendPoolName = 'webAppsPool'
+param backendPoolName string
+var frontendName = 'loadBalancerFrontEnd'
 
 //param lbSubnetID string 
 
@@ -35,12 +36,13 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
   properties: {
     frontendIPConfigurations: [
       {
+        name: frontendName
         properties:{
           publicIPAddress: {
             id: publicIP.id
           }
         }
-        name: 'loadBalancerFrontEnd'
+        
       }
     ]
     backendAddressPools: [
@@ -50,26 +52,33 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
     ]
     loadBalancingRules: [
       {
-        name: 'defaultRule'
+        name: 'HTTPrule'
         properties: {
           frontendIPConfiguration: {
-            id: publicIP.id
+            id: resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', loadBalancerName, frontendName)//publicIP.id
           }
           backendAddressPool: {
             id:  resourceId('Microsoft.Network/loadBalancers/backendAddressPools', loadBalancerName, backendPoolName)
           }
           frontendPort: 80
+          backendPort: 80
           protocol: 'Tcp'
+          loadDistribution: 'Default'
+          probe: {
+            id: resourceId('Microsoft.Network/loadBalancers/probes', loadBalancerName, 'lbProbe')
+          }
         }
       }
     ]
     probes: [
       {
+        name: 'lbProbe'
         properties: {
           port: 80
           protocol: 'Tcp'
+          intervalInSeconds: 5
+          numberOfProbes: 2
         }
-        name: 'lbProbe'
       }
     ]
   }
@@ -77,3 +86,5 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
     publicIP
   ]
 }
+
+output backendpoolID string = resourceId('Microsoft.Network/loadBalancers/backendAddressPools', loadBalancerName, backendPoolName)

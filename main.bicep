@@ -17,11 +17,8 @@ param vNetName string
 param addressPrefix string 
 param subnets array
 
-param lbName string
-//param lbSubnetName string 
-//param poolSubnetName string
-
-//param vmName string 
+param loadBalancerName string
+param backendPoolName string
 
 param imageOffer string
 param imagePublisher string 
@@ -53,16 +50,19 @@ module vmCreation 'vm.bicep' = {
     imagePublisher: imagePublisher
     imageSku: imageSku
     vmSize: vmSize
+    backendPoolID: loadBalancerSetup.outputs.backendpoolID
   }
-  dependsOn: [vNetSetup]
+  dependsOn: [vNetSetup
+  loadBalancerSetup]
 }
 
 module loadBalancerSetup 'loadBalancer.bicep' = {
   scope: resourceGroup
   name: 'lbDepoly'
   params: {
-    loadBalancerName: lbName
+    loadBalancerName: loadBalancerName
     location: location
+    backendPoolName: backendPoolName
     //lbSubnetName: lbSubnetName
     //vNetName: vNetName
     //lbSubnetID: vNetSetup.outputs.lbSubnetID

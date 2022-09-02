@@ -31,6 +31,12 @@
       }, 
       "vmSize" :{
         "value": "Standard_B2s"
+      },
+      "loadBalancerName" :{
+        "value" : "publicLoadBalancer"
+      }, 
+      "backendPoolName":{
+        "value" : "webAppsPool"
       }
 
     }
