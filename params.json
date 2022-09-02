@@ -20,17 +20,17 @@
           }
           ]
       },
-      "lbName" : {
-        "value": "chaosPublicLB"
-      },
-      "lbSubnetName" : {
-        "value": "loadBalancerSubnet"
+      "imageOffer" : {
+        "value": "WindowsServer"
       }, 
-      "poolSubnetName" : {
-        "value": "vmSubnet"
+      "imagePublisher" :{
+        "value": "MicrosoftWindowsServer"
       }, 
-      "vmName" : {
-        "value": "webVM"
+      "imageSku" :{
+        "value" : "2019-Datacenter"
+      }, 
+      "vmSize" :{
+        "value": "Standard_B2s"
       }
 
     }

@@ -25,10 +25,13 @@ var vmName = 'vmchaos'
 @batchSize(1)
 resource vmNic 'Microsoft.Network/networkInterfaces@2021-08-01' = [for i in range(0,3): {
   name: '${vmNicName}-${i}'
+  location: location
   properties: {
     ipConfigurations: [
        {
+        name: '${vmNicName}-${i}IPconfig'
          properties: {
+          privateIPAddress: '10.0.2.${i+5}'
           privateIPAddressVersion: 'IPv4'
           privateIPAllocationMethod: 'Static'
           subnet: {
@@ -71,10 +74,11 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = [for i 
       adminPassword: adminPass
       adminUsername: adminUser
     }
-    windowsConfiguration: {
-      enableAutomaticUpdates: true
-      provisionVMAgent: true
-    }
+    
+    // windowsConfiguration: {
+    //   enableAutomaticUpdates: true
+    //   provisionVMAgent: true
+    // }
   }
   dependsOn: [
     vmNic

@@ -8,7 +8,8 @@ param addressPrefixes string
 param subnets array
 param location string
 
-param lbSubnetName string
+var lbSubnetName = 'loadBalancerSubnet'
+var poolSubnetName = 'vmSubnet' 
 
 resource vNet 'Microsoft.Network/virtualNetworks@2021-08-01' = {
   name: vNetName
@@ -32,4 +33,6 @@ resource Subnets 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = [for (
   //dependsOn: [vNet]
 }]
 
+//this seems a bit hacky but see how it goes
 output lbSubnetID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vNetName, lbSubnetName)
+output poolSubnetID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vNetName, poolSubnetName) 

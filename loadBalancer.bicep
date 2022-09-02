@@ -6,13 +6,13 @@ param location string
 param loadBalancerName string
 var lbSku = 'Standard'
 
-param vNetName string
-param lbSubnetName string
+//param vNetName string
+//param lbSubnetName string
 
 var lbpublicIPname = 'lbpublicIP'
 var backendPoolName = 'webAppsPool'
 
-param lbSubnetID string 
+//param lbSubnetID string 
 
 resource publicIP 'Microsoft.Network/publicIPAddresses@2021-08-01' = {
   name: lbpublicIPname 

@@ -18,10 +18,10 @@ param addressPrefix string
 param subnets array
 
 param lbName string
-param lbSubnetName string 
-param poolSubnetName string
+//param lbSubnetName string 
+//param poolSubnetName string
 
-param vmName string 
+//param vmName string 
 
 param imageOffer string
 param imagePublisher string 
@@ -36,8 +36,8 @@ module vNetSetup 'vNet_subnets.bicep' = {
     addressPrefixes: addressPrefix
     subnets: subnets
     location: location
-    lbSubnetName: lbSubnetName
-    poolSubnetName: poolSubnetName
+    //lbSubnetName: lbSubnetName
+    //poolSubnetName: poolSubnetName
   }
 }
 
@@ -54,16 +54,18 @@ module vmCreation 'vm.bicep' = {
     imageSku: imageSku
     vmSize: vmSize
   }
+  dependsOn: [vNetSetup]
 }
+
 module loadBalancerSetup 'loadBalancer.bicep' = {
   scope: resourceGroup
   name: 'lbDepoly'
   params: {
     loadBalancerName: lbName
     location: location
-    lbSubnetName: lbSubnetName
-    vNetName: vNetName
-    lbSubnetID: vNetSetup.outputs.lbSubnetID
+    //lbSubnetName: lbSubnetName
+    //vNetName: vNetName
+    //lbSubnetID: vNetSetup.outputs.lbSubnetID
   }
   dependsOn: [vNetSetup]
 }
