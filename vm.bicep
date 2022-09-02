@@ -50,6 +50,7 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2021-08-01' = [for i in rang
   }
 }]
 
+
 @batchSize(1)
 resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = [for i in range(0,3): {
   name: '${vmName}-${i}'
@@ -93,50 +94,24 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = [for i 
 }]
 
 
+@batchSize(1)
+resource InstallWebServer 'Microsoft.Compute/virtualMachines/extensions@2021-11-01' = [for i in range(0, 3): {
+  name: '${vmName}-${i}/InstallWebServer'
+  location: location
+  properties: {
+    publisher: 'Microsoft.Compute'
+    type: 'CustomScriptExtension'
+    typeHandlerVersion: '1.7'
+    autoUpgradeMinorVersion: true
+    settings: {
+      commandToExecute: 'powershell.exe Install-WindowsFeature -name Web-Server -IncludeManagementTools && powershell.exe remove-item \'C:\\inetpub\\wwwroot\\iisstart.htm\' && powershell.exe Add-Content -Path \'C:\\inetpub\\wwwroot\\iisstart.htm\' -Value $(\'Hello World from \' + $env:computername)'
+    }
+  }
+  dependsOn: [
+    virtualMachine
+    vmNic
+  ]
+}]
+
 ////
 
-// resource projectName_vm_1 'Microsoft.Compute/virtualMachines@2020-06-01' = [for i in range(0, 3): {
-//   name: '${projectName}-vm${(i + 1)}'
-//   location: location
-//   zones: [
-//     (i + 1)
-//   ]
-//   properties: {
-//     hardwareProfile: {
-//       vmSize: vmSize
-//     }
-//     storageProfile: {
-//       imageReference: {
-//         publisher: 'MicrosoftWindowsServer'
-//         offer: 'WindowsServer'
-//         sku: '2019-Datacenter'
-//         version: 'latest'
-//       }
-//       osDisk: {
-//         createOption: 'FromImage'
-//         managedDisk: {
-//           storageAccountType: vmStorageAccountType
-//         }
-//       }
-//     }
-//     networkProfile: {
-//       networkInterfaces: [
-//         {
-//           id: resourceId('Microsoft.Network/networkInterfaces', '${projectName}-vm${(i + 1)}-networkInterface')
-//         }
-//       ]
-//     }
-//     osProfile: {
-//       computerName: '${projectName}-vm${(i + 1)}'
-//       adminUsername: adminUsername
-//       adminPassword: adminPassword
-//       windowsConfiguration: {
-//         enableAutomaticUpdates: true
-//         provisionVMAgent: true
-//       }
-//     }
-//   }
-//   dependsOn: [
-//     projectName_vm_1_networkInterface
-//   ]
-// }]
