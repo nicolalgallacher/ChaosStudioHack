@@ -33,6 +33,7 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
   sku: {
     name:lbSku
   }
+   
   properties: {
     frontendIPConfigurations: [
       {
@@ -41,6 +42,7 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
           publicIPAddress: {
             id: publicIP.id
           }
+           
         }
         
       }

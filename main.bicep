@@ -17,6 +17,9 @@ param vNetName string
 param addressPrefix string 
 param subnets array
 
+param bastionSubnetName string
+param bastionSubnetPrefix string
+
 param loadBalancerName string
 param backendPoolName string
 
@@ -25,6 +28,14 @@ param imagePublisher string
 param imageSku string
 param vmSize string 
 
+
+module netGateway 'natGateway.bicep' = {
+  scope: resourceGroup
+  name: 'natGatewayDeploy'
+  params: {
+    location: location
+  }
+}
 module vNetSetup 'vNet_subnets.bicep' = {
   scope: resourceGroup
   name: 'vNetNameDeploy'
@@ -33,9 +44,13 @@ module vNetSetup 'vNet_subnets.bicep' = {
     addressPrefixes: addressPrefix
     subnets: subnets
     location: location
-    //lbSubnetName: lbSubnetName
-    //poolSubnetName: poolSubnetName
+    bastionSubnetName: bastionSubnetName
+    bastionSubnetPrefix: bastionSubnetPrefix
+    natGatewayID: netGateway.outputs.natgatewayID
   }
+   dependsOn: [
+     netGateway
+   ]
 }
 
 //Create VMs in PoolSubnet (but this could be repurposed to make VMs in other subnets)

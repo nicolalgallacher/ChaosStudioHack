@@ -37,8 +37,13 @@
       }, 
       "backendPoolName":{
         "value" : "webAppsPool"
+      }, 
+      "bastionSubnetName":{
+        "value": "AzureBastionSubnet"
+      }, 
+      "bastionSubnetPrefix":{
+        "value" : "10.0.3.0/24"
       }
-
     }
 
 }
