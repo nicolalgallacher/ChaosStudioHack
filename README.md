@@ -4,8 +4,14 @@
 
 ![](framework.png)
 
-## Hack Architecture 
-Public Facing Load Balancer - 3 VMs back pool  
+## Hack Architectures
+
+| Name     | Despriction                                          | Deploy         |
+| -------- | -----------------------------------------------------| -------------- |
+| Monkey   | IIS Web Servers with Public Load Balancer Front End  |                |
+
+
+ 
 ## Hypothesize
 What outages can you think have that may effect this architecture? 
 How do you think the current architecture would handle a High Availability outage?
