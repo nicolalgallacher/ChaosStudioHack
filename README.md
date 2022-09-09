@@ -11,7 +11,7 @@
 | Monkey   | IIS Web Servers with Public Load Balancer Front End  |                |
 
 ### Monkey Architecture Diagram
- ![image](monkeyDiagram.png | width 250)
+ ![image](monkeyDiagram.png){width="250px"}
  
 ## Hypothesize
 What outages can you think have that may effect this architecture? 
