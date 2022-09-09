@@ -1,6 +1,7 @@
 //
-//  
-//
+//  Creates vNets & Subnets contained in the array parameter
+//  Also creates a Bastion Subnet 
+//  Creates an NSG allowing inbound traffic on port 80, attatches to all Subnets 
 
 param vNetName string
 param addressPrefixes string
@@ -11,8 +12,7 @@ param location string
 param bastionSubnetName string
 param bastionSubnetPrefix string
 
-var lbSubnetName = 'loadBalancerSubnet'
-var poolSubnetName = 'vmSubnet' 
+var poolSubnetName = 'vmSubnet' //TODO should be changed to a parameter
 
 //param natGatewayID string
 
@@ -113,6 +113,5 @@ resource bastionHost 'Microsoft.Network/bastionHosts@2022-01-01' = {
 }
 
 
-//this seems a bit hacky but see how it goes
-output lbSubnetID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vNetName, lbSubnetName)
+//Used to pass into VM creation so they know what subnet to be created in
 output poolSubnetID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vNetName, poolSubnetName) 

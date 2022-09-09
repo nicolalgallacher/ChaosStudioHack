@@ -1,19 +1,18 @@
 //
-//
+// Load Balancer Module
+// Creates Standard Lb with Public IP address 
+// Inbound rule of 80 > 80 allow
+// Health probe checking port 80
+// 
 //
 
 param location string 
 param loadBalancerName string
 var lbSku = 'Standard'
 
-//param vNetName string
-//param lbSubnetName string
-
 var lbpublicIPname = 'lbpublicIP'
 param backendPoolName string
 var frontendName = 'loadBalancerFrontEnd'
-
-//param lbSubnetID string 
 
 resource publicIP 'Microsoft.Network/publicIPAddresses@2021-08-01' = {
   name: lbpublicIPname 
@@ -27,14 +26,12 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2021-08-01' = {
   }
 }
 
-
 resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
   name: loadBalancerName
   location: location
   sku: {
     name:lbSku
   }
-   
   properties: {
     frontendIPConfigurations: [
       {
@@ -43,9 +40,7 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
           publicIPAddress: {
              id: publicIP.id
           }
-           
         }
-        
       }
     ]
     backendAddressPools: [
@@ -115,6 +110,11 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
   ]
 }
 
+// Used by VM creation to put VMs in the backend pool of the load balancer
+output backendpoolID string = resourceId('Microsoft.Network/loadBalancers/backendAddressPools', loadBalancerName, backendPoolName)
+
+
+//Not used but code to create a NAT Rule on the Load Balancer
 // resource natRule 'Microsoft.Network/loadBalancers/inboundNatRules@2022-01-01' = {
 //     name: '${loadBalancerName}/iisHTTPNATrule'
 //      properties: {
@@ -132,5 +132,3 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
 //        idleTimeoutInMinutes: 4
 //      }
 // }
-
-output backendpoolID string = resourceId('Microsoft.Network/loadBalancers/backendAddressPools', loadBalancerName, backendPoolName)

@@ -1,10 +1,10 @@
 //
-//
+// Creates number of VMs in count var (3) 
+// Adds them to the poolSubnetID subnet from vNet_subnets module 
+// Installs IIS on the severs
 //
 
-//param vmName string
 param location string 
-
 
 param vmSize string
 param imagePublisher string
@@ -14,6 +14,8 @@ param imageSku string
 param backendPoolID string
 param poolSubnetID string
 
+var count = 3
+
 var vmNicName = 'nic1' 
 
 var adminPass = 'Chaos999!'
@@ -21,10 +23,8 @@ var adminUser = 'AzureAdmin'
 
 var vmName = 'vmchaos'
 
-
-
 @batchSize(1)
-resource vmNic 'Microsoft.Network/networkInterfaces@2021-08-01' = [for i in range(0,3): {
+resource vmNic 'Microsoft.Network/networkInterfaces@2021-08-01' = [for i in range(0,count): {
   name: '${vmNicName}-${i}'
   location: location
   properties: {
@@ -32,7 +32,7 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2021-08-01' = [for i in rang
        {
         name: '${vmNicName}-${i}IPconfig'
          properties: {
-          privateIPAddress: '10.0.2.${i+5}'
+          privateIPAddress: '10.0.2.${i+5}' //+5 to avoid reserved IPs
           privateIPAddressVersion: 'IPv4'
           privateIPAllocationMethod: 'Static'
           subnet: {
@@ -52,7 +52,7 @@ resource vmNic 'Microsoft.Network/networkInterfaces@2021-08-01' = [for i in rang
 
 
 @batchSize(1)
-resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = [for i in range(0,3): {
+resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = [for i in range(0,count): {
   name: '${vmName}-${i}'
   location: location 
   properties: {
@@ -82,11 +82,6 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = [for i 
       adminPassword: adminPass
       adminUsername: adminUser
     }
-    
-    // windowsConfiguration: {
-    //   enableAutomaticUpdates: true
-    //   provisionVMAgent: true
-    // }
   }
   dependsOn: [
     vmNic
@@ -95,7 +90,7 @@ resource virtualMachine 'Microsoft.Compute/virtualMachines@2022-03-01' = [for i 
 
 
 @batchSize(1)
-resource InstallWebServer 'Microsoft.Compute/virtualMachines/extensions@2021-11-01' = [for i in range(0, 3): {
+resource InstallWebServer 'Microsoft.Compute/virtualMachines/extensions@2021-11-01' = [for i in range(0, count): {
   name: '${vmName}-${i}/InstallWebServer'
   location: location
   properties: {
@@ -113,5 +108,5 @@ resource InstallWebServer 'Microsoft.Compute/virtualMachines/extensions@2021-11-
   ]
 }]
 
-////
+
 

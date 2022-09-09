@@ -1,7 +1,11 @@
 //
+// Subcription Spoke Deployment
+// Creates vNet with Subnets defined in parameters files + Bastion subnet
+// Creates Load Balancer with Public IP address 
+// Creates VMs for the backend pool subnet       
+// 
 //
-//
-//
+
 
 targetScope ='subscription'
 
@@ -28,7 +32,6 @@ param imagePublisher string
 param imageSku string
 param vmSize string 
 
-
 // module netGateway 'natGateway.bicep' = {
 //   scope: resourceGroup
 //   name: 'natGatewayDeploy'
@@ -36,6 +39,7 @@ param vmSize string
 //     location: location
 //   }
 // }
+
 module vNetSetup 'vNet_subnets.bicep' = {
   scope: resourceGroup
   name: 'vNetNameDeploy'
@@ -46,6 +50,7 @@ module vNetSetup 'vNet_subnets.bicep' = {
     location: location
     bastionSubnetName: bastionSubnetName
     bastionSubnetPrefix: bastionSubnetPrefix
+    //poolSubnetName: loadBalancerSetup.output
     //natGatewayID: netGateway.outputs.natgatewayID
   }
   //  dependsOn: [
@@ -59,7 +64,6 @@ module vmCreation 'vm.bicep' = {
   name: 'vmDeploy'
   params: {
     location: location
-    //vmName: vmName
     poolSubnetID: vNetSetup.outputs.poolSubnetID
     imageOffer: imageOffer
     imagePublisher: imagePublisher
@@ -78,9 +82,6 @@ module loadBalancerSetup 'loadBalancer.bicep' = {
     loadBalancerName: loadBalancerName
     location: location
     backendPoolName: backendPoolName
-    //lbSubnetName: lbSubnetName
-    //vNetName: vNetName
-    //lbSubnetID: vNetSetup.outputs.lbSubnetID
   }
   dependsOn: [vNetSetup]
 }
