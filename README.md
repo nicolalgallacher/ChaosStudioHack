@@ -6,9 +6,12 @@
 
 ## Hack Architectures
 
+Please select a base architecture example you would like to work with from the descriptions below: 
+
 | Name     | Despriction                                          | Deploy                              |     
 | -------- | -----------------------------------------------------| ------------------------------------|
 | Monkey   | IIS Web Servers with Public Load Balancer Front End  |                                     |
+| More Comming Soon!
 
 ### Monkey Architecture Diagram
  <img src="monkeyDiagram.png" width="700">
