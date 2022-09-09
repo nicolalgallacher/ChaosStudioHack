@@ -29,13 +29,13 @@ param imageSku string
 param vmSize string 
 
 
-module netGateway 'natGateway.bicep' = {
-  scope: resourceGroup
-  name: 'natGatewayDeploy'
-  params: {
-    location: location
-  }
-}
+// module netGateway 'natGateway.bicep' = {
+//   scope: resourceGroup
+//   name: 'natGatewayDeploy'
+//   params: {
+//     location: location
+//   }
+// }
 module vNetSetup 'vNet_subnets.bicep' = {
   scope: resourceGroup
   name: 'vNetNameDeploy'
@@ -46,11 +46,11 @@ module vNetSetup 'vNet_subnets.bicep' = {
     location: location
     bastionSubnetName: bastionSubnetName
     bastionSubnetPrefix: bastionSubnetPrefix
-    natGatewayID: netGateway.outputs.natgatewayID
+    //natGatewayID: netGateway.outputs.natgatewayID
   }
-   dependsOn: [
-     netGateway
-   ]
+  //  dependsOn: [
+  //    netGateway
+  //  ]
 }
 
 //Create VMs in PoolSubnet (but this could be repurposed to make VMs in other subnets)

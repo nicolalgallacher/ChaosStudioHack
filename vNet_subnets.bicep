@@ -14,7 +14,30 @@ param bastionSubnetPrefix string
 var lbSubnetName = 'loadBalancerSubnet'
 var poolSubnetName = 'vmSubnet' 
 
-param natGatewayID string
+//param natGatewayID string
+
+resource nsg 'Microsoft.Network/networkSecurityGroups@2022-01-01' = {
+  name: 'nsg_chaos'
+  location: location 
+   properties: {
+    securityRules: [
+       {
+         name: 'AllowHTTPinbound'
+          properties: {
+            direction:  'Inbound'
+            protocol:  'Tcp'
+            access:  'Allow'
+            sourceAddressPrefix: '*'
+            sourcePortRange: '*'
+            destinationPortRange: '80'
+            description: 'Allow Inbound HTTP Traffic from Any to Any'
+            destinationAddressPrefix: '*'
+            priority: 100
+          }
+       }
+    ] 
+   } 
+}
 
 resource vNet 'Microsoft.Network/virtualNetworks@2021-08-01' = {
   name: vNetName
@@ -27,23 +50,21 @@ resource vNet 'Microsoft.Network/virtualNetworks@2021-08-01' = {
     }
   }
 }
-  
+
 @batchSize(1)
-resource Subnets 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = [for (sn, index) in subnets : {
+resource Subnets 'Microsoft.Network/virtualNetworks/subnets@2021-08-01' = [for (sn, index) in subnets : { 
   parent: vNet
   name: sn.name
   properties: {
-    addressPrefix: sn.subnetPrefix
-     natGateway: {
-       id: natGatewayID
-     }
+    addressPrefix: sn.subnetPrefix 
+    networkSecurityGroup: {
+       id: nsg.id
+    }
+    // natGateway: {
+    //    id: natGatewayID
+    //  }
   } 
-   
-  //dependsOn: [vNet]
 }]
-
-
-//Bastion Deployment
 
 resource bastionSubnet 'Microsoft.Network/virtualNetworks/subnets@2020-06-01' = {
   name: '${vNetName}/${bastionSubnetName}'
@@ -90,6 +111,7 @@ resource bastionHost 'Microsoft.Network/bastionHosts@2022-01-01' = {
     vNet
    ]
 }
+
 
 //this seems a bit hacky but see how it goes
 output lbSubnetID string = resourceId('Microsoft.Network/VirtualNetworks/subnets', vNetName, lbSubnetName)

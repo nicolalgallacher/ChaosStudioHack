@@ -27,6 +27,7 @@ resource publicIP 'Microsoft.Network/publicIPAddresses@2021-08-01' = {
   }
 }
 
+
 resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
   name: loadBalancerName
   location: location
@@ -40,7 +41,7 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
         name: frontendName
         properties:{
           publicIPAddress: {
-            id: publicIP.id
+             id: publicIP.id
           }
            
         }
@@ -64,8 +65,12 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
           }
           frontendPort: 80
           backendPort: 80
+          enableFloatingIP: false
+          idleTimeoutInMinutes: 15
           protocol: 'Tcp'
           loadDistribution: 'Default'
+          disableOutboundSnat: true
+          enableTcpReset: true
           probe: {
             id: resourceId('Microsoft.Network/loadBalancers/probes', loadBalancerName, 'lbProbe')
           }
@@ -83,10 +88,49 @@ resource loadBalancer 'Microsoft.Network/loadBalancers@2021-08-01' = {
         }
       }
     ]
+    outboundRules: [
+       {
+         name: 'outboundRule'
+         properties: {
+          allocatedOutboundPorts: 10000
+          enableTcpReset: false
+          idleTimeoutInMinutes: 15          
+          frontendIPConfigurations:  [
+             {
+              id: resourceId('Microsoft.Network/loadBalancers/frontendIPConfigurations', loadBalancerName, frontendName)
+             }
+          ] 
+          backendAddressPool: {
+              id:  resourceId('Microsoft.Network/loadBalancers/backendAddressPools', loadBalancerName, backendPoolName)
+
+          }
+          protocol: 'All'
+         }
+        
+       }
+    ]
   }
   dependsOn: [
     publicIP
   ]
 }
+
+// resource natRule 'Microsoft.Network/loadBalancers/inboundNatRules@2022-01-01' = {
+//     name: '${loadBalancerName}/iisHTTPNATrule'
+//      properties: {
+//        backendAddressPool: {
+//           id: resourceId('Microsoft.Network/loadBalancers/backendAddressPools', loadBalancerName, backendPoolName)
+//        } 
+//        backendPort: 80
+//        frontendIPConfiguration: {
+//           id: loadBalancer.properties.frontendIPConfigurations[0].id
+//        } 
+//        frontendPort:222 
+//        //frontendPortRangeStart: 80
+//        //frontendPortRangeEnd: 90
+//        protocol: 'Tcp'
+//        idleTimeoutInMinutes: 4
+//      }
+// }
 
 output backendpoolID string = resourceId('Microsoft.Network/loadBalancers/backendAddressPools', loadBalancerName, backendPoolName)
