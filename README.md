@@ -49,13 +49,13 @@ This is where Chaos Studio comes in!
 Look at your 5 Hypothisis from the previous task. 
 
 Compare this with the list of avialable faults that can be produced from Chaos Studio: 
-  Supported Resources: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-fault-providers
-  Faults and Actions: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-fault-library
+  - Supported Resources: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-fault-providers
+  - Faults and Actions: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-fault-library
 
 Choose one of your Hypothisis and create a Chaos Experiment that can replicate the effects: 
-  Create an Experiment: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-quickstart-azure-portal
-  High CPU Experiment https://gallinthecloud.com/p/chaos-studio-overview/
-  Chaos Mesh & AKS Faults: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-tutorial-aks-portal
+  - Create an Experiment: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-quickstart-azure-portal
+  - High CPU Experiment https://gallinthecloud.com/p/chaos-studio-overview/
+  - Chaos Mesh & AKS Faults: https://docs.microsoft.com/en-us/azure/chaos-studio/chaos-studio-tutorial-aks-portal
 
 ## Step 4: Analyze
 Did the architecture handle the outage in the way you thought? 
