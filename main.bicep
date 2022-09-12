@@ -40,7 +40,7 @@ param vmSize string
 //   }
 // }
 
-module vNetSetup 'vNet_subnets.bicep' = {
+module vNetSetup 'modules/vNet_subnets.bicep' = {
   scope: resourceGroup
   name: 'vNetNameDeploy'
   params: {
@@ -59,7 +59,7 @@ module vNetSetup 'vNet_subnets.bicep' = {
 }
 
 //Create VMs in PoolSubnet (but this could be repurposed to make VMs in other subnets)
-module vmCreation 'vm.bicep' = {
+module vmCreation 'modules/vm.bicep' = {
   scope: resourceGroup
   name: 'vmDeploy'
   params: {
@@ -75,7 +75,7 @@ module vmCreation 'vm.bicep' = {
   loadBalancerSetup]
 }
 
-module loadBalancerSetup 'loadBalancer.bicep' = {
+module loadBalancerSetup 'modules/loadBalancer.bicep' = {
   scope: resourceGroup
   name: 'lbDepoly'
   params: {
