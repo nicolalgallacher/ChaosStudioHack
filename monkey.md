@@ -1,6 +1,6 @@
 # Overview 
 
-This Architecure deploys 3 IIS Web Servers behind an Azure Load Balancer with a Public IP Address
+This Architecture deploys 3 IIS Web Servers behind an Azure Load Balancer with a Public IP Address
 
 ## Monkey Architecture Diagram
  <img src="monkeyDiagram.png" width="700">
