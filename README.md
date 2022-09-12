@@ -66,3 +66,6 @@ How would you improve the architecture based on your experiment results?
 Woudl other teams have been aware the experiment was running if this was deployed in a production environment? 
 
 **Think of 5 improvements you would make to the architecture, implement any changes you think you can to improve High Avilability and Monitoring**
+
+## Clean Up 
+Ensure that you delete any un needed resources once you have completed the hack 
