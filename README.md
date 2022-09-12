@@ -2,7 +2,14 @@
 
 ## Overview
 
-![](framework.png)
+Welcome to this Chaos Studio Hack, where we will allow you to deploy Chaos Experiments on pre-built architectures!
+
+We will be following the iterative process below as the base for the activities we will be carrying out: 
+
+<p align="center">
+  <img src="framework.png" />
+</p>
+
 
 ## Hack Architectures
 
@@ -10,7 +17,7 @@ Please select a base architecture example you would like to work with from the d
 
 | Name     | Despriction                                          | Deploy                              |     
 | -------- | -----------------------------------------------------| ------------------------------------|
-| Monkey   | IIS Web Servers with Public Load Balancer Front End  |                                     |
+| Monkey   | IIS Web Servers with Public Load Balancer Front End  |  Run 'deployMonkey.ps1' to deploy in your subscription                                |
 | More Comming Soon!
 
 ### Monkey Architecture Diagram
