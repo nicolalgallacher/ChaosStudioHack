@@ -20,13 +20,11 @@ We will be following the iterative process below as the base for the activities 
 ### Deploy your Architecture
 Please select a base architecture example you would like to work with from the descriptions below: 
 
-| Name     | Despriction                                          | Deploy                              |     
-| -------- | -----------------------------------------------------| ------------------------------------|
-| Monkey   | IIS Web Servers with Public Load Balancer Front End  |  Run 'deployMonkey.ps1' to deploy in your subscription                                |
+| Name     | Despriction                                          | Details | Deploy                              |     
+| -------- | -----------------------------------------------------| --------|---------------------------          |
+| Monkey   | IIS Web Servers with Public Load Balancer Front End  | [Design](monkey.md)        |Run 'deployMonkey.ps1' to deploy in your subscription                                |
 | More Comming Soon!
 
-#### Monkey Architecture Diagram
- <img src="monkeyDiagram.png" width="700">
  
 You will be asked to enter the location you want to deploy your architecture to when you run the deployment.
  
