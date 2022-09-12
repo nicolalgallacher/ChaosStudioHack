@@ -61,10 +61,10 @@ Choose one of your Hypothisis and create a Chaos Experiment that can replicate t
 Did the architecture handle the outage in the way you thought? 
 Was there a full outage or was the architecture able to stay running? 
 
-**Write a breif summary of how the architecture preformed during the experiment compared to what you had hypothesised **
+**Write a breif summary of how the architecture preformed during the experiment compared to what you had hypothesised**
 
 ## Step 5: Improve 
 How would you improve the architecture based on your experiment results? 
 Woudl other teams have been aware the experiment was running if this was deployed in a production environment? 
 
-**Think of 5 improvements you would make to the architecture, implement any changes you think you can to improve High Avilability and Monitoring **
+**Think of 5 improvements you would make to the architecture, implement any changes you think you can to improve High Avilability and Monitoring**
