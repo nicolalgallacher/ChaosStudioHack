@@ -61,7 +61,7 @@ Choose one of your Hypothisis and create a Chaos Experiment that can replicate t
 Did the architecture handle the outage in the way you thought? 
 Was there a full outage or was the architecture able to stay running? 
 
-**Write a breif summary of how the architecture preformed during the experiment compared to what you had hypothesised**
+**Write a brief summary of how the architecture preformed during the experiment compared to what you had hypothesised**
 
 ## Step 5: Improve 
 How would you improve the architecture based on your experiment results? 
