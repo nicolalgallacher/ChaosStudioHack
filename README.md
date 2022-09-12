@@ -23,7 +23,7 @@ Please select a base architecture example you would like to work with from the d
 | Name     | Despriction                                          | Details | Deploy                              |     
 | -------- | -----------------------------------------------------| --------|---------------------------          |
 | Monkey   | IIS Web Servers with Public Load Balancer Front End  | [Design](monkey.md)        |Run 'deployMonkey.ps1' to deploy in your subscription                                |
-| More Comming Soon!
+| More Comming Soon! | [How to Contribute](Contribute.md)
 
  
 You will be asked to enter the location you want to deploy your architecture to when you run the deployment.
