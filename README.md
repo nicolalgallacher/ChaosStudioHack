@@ -12,8 +12,10 @@ We will be following the iterative process below as the base for the activities 
 
 ### Hack Pre Requsists 
 - Ensure that you have an Azure Subscription that you can deploy resources into 
-- An intermediate understanding of the Azure resources
-- Ideally choose the Architecture you want to work with in Step 1 prior to the hack and have it deployed beforehand. 
+- Register the Microsoft.Choas resource provider on your subscription
+- Open Cloud Shell
+- type "Git clone https://github.com/nicolalgallacher/ChaosStudioHack"
+- Cd into the folder created "cd ./ChaosStudioHack"
 
 ## Step 1: Hack Architectures
 
