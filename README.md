@@ -10,7 +10,7 @@ We will be following the iterative process below as the base for the activities 
   <img src="framework.png" />
 </p>
 
-### Hack Pre Requsists 
+### Hack Prerequisites 
 - Ensure that you have an Azure Subscription that you can deploy resources into 
 - Register the Microsoft.Chaos resource provider on your subscription [Register Provider](https://learn.microsoft.com/en-us/azure/chaos-studio/chaos-studio-quickstart-azure-portal#register-the-chaos-studio-resource-provider)
 - Open Cloud Shell
