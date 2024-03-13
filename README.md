@@ -12,7 +12,7 @@ We will be following the iterative process below as the base for the activities 
 
 ### Hack Pre Requsists 
 - Ensure that you have an Azure Subscription that you can deploy resources into 
-- Register the Microsoft.Choas resource provider on your subscription
+- Register the Microsoft.Chaos resource provider on your subscription [Register Provider](https://learn.microsoft.com/en-us/azure/virtual-desktop/azure-ad-joined-session-hosts)
 - Open Cloud Shell
 - type "Git clone https://github.com/nicolalgallacher/ChaosStudioHack"
 - Cd into the folder created "cd ./ChaosStudioHack"
